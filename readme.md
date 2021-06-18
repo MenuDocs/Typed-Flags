@@ -6,6 +6,7 @@ A Typehint based system for including flag input in your discord.py commands.
 Why bother with numerous decorators and patched commands when you just typehint your input to receive command flags?
 
 #### Examples
+---
 
 Usage is as simple as typehinting the entire input argument string to `TypedFlags`, this in turn will convert everything and will return this argument as a `dict` of `key:value` pairs where each `key` is the flag, and the `value` is the value for that flag
 
@@ -16,13 +17,14 @@ async def test(ctx, *, args: TypedFlags):
     await ctx.send(args)
 ```
 An example calling the above code:
-`%test this "Lol ez" --try:="test string" --hard:=This is "kinda cool"`
+`%test this "Lol ez" --try:=test string --hard:=This is kinda cool`
 ```python
-args = {'argless': ['this', 'Lol ez', 'is', 'kinda', 'cool'], 'try': 'test string', 'hard': 'This'}
+args = {'argless': ['this', 'Lol ez'], 'try': 'test string', 'hard': 'This is kinda cool'}
 ```
 
 
 #### Customization
+---
 
 You can customize two things, the string to preceed any flag values as well as the string to split up between the flag and its value.
 Both of these are keyword arguments when initializing `TypedFlags`
@@ -37,9 +39,14 @@ Both of these are keyword arguments when initializing `TypedFlags`
 You do not have to provide these values. There are defaults in place. It is only for customization purposes
 
 #### Important Notes
+---
 
 This package works in-line with how discord.py handles command parsing and consumption. That is to say the argument `Hello world` will be *two* variables, where as the argument `"Hello world"` will be parsed as one argument. This is something important to understand otherwise you will experience unexpected behaviour.
 
+
+**However**, this only applies to 'argless' arguments. Values between flags are considered to be all part of said flag (See examples)
+
+---
 
 Any arguments **not** associated with a flag will be added to the dictionary under the key `argless`. The value for this key is a `list` containing all of the arguments found that do not corrospond to a given flag. 
 
