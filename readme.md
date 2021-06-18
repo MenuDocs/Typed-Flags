@@ -11,6 +11,8 @@ Why bother with numerous decorators and patched commands when you just typehint 
 Usage is as simple as typehinting the entire input argument string to `TypedFlags`, this in turn will convert everything and will return this argument as a `dict` of `key:value` pairs where each `key` is the flag, and the `value` is the value for that flag
 
 ```python
+from typed_flags import TypedFlags
+
 @bot.command()
 async def test(ctx, *, args: TypedFlags):
     # Send all of command args
