@@ -40,12 +40,6 @@ class TypedFlags(commands.Converter):
 
                 arg_name = arg[0]
                 arg_value = arg[1].strip()
-                view = StringView(arg_value)
-
-                # Get the first matching string
-                data[arg_name] = view.get_quoted_word()
-                arg_value = view.get_quoted_word()
-                view.skip_ws()
 
                 if (
                     is_reserved := (arg_value == "argless")
@@ -58,12 +52,6 @@ class TypedFlags(commands.Converter):
                     raise ReservedKeyword
                 else:
                     data[arg_name] = arg_value
-
-                # The rest is just argless stuff
-                while not view.eof:
-                    word = view.get_quoted_word()
-                    argless.append(word)
-                    view.skip_ws()
 
             else:
                 argless.append(argument[i])
