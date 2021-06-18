@@ -1,2 +1,5 @@
 .git/
 .idea/
+build/
+dist/
+discord_typed_flags.egg-info/

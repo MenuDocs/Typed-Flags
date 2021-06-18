@@ -15,7 +15,7 @@ with open("typed_flags/__init__.py") as stream:
 version = match.group(2)
 
 setuptools.setup(
-    name="typed-flags",
+    name="discord-typed-flags",
     version=version,
     author="Menudocs",
     author_email="contact@menudocs.org",
