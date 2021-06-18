@@ -31,5 +31,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
         "Development Status :: 5 - Production/Stable",
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.8",
 )

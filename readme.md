@@ -27,8 +27,12 @@ args = {'argless': ['this', 'Lol ez', 'is', 'kinda', 'cool'], 'try': 'test strin
 You can customize two things, the string to preceed any flag values as well as the string to split up between the flag and its value.
 Both of these are keyword arguments when initializing `TypedFlags`
 
-- `start` -> The string to preceed any flags (Defaults to `--`)
-- `delim` -> What to split flags with to get the `key:value` split (Defaults to `:=`)
+- `start`: str -> The string to preceed any flags (Defaults to `--`)
+- `delim`: str -> What to split flags with to get the `key:value` split (Defaults to `:=`)
+- `suppress_reserved_keyword`: boolean -> Whether to suppress errors on reserved keywords (Defaults to `False`)
+    - Currently `argless` is reserved
+    - By default, if the user provides a flag called `argless` it raises `ReservedKeyword` 
+    - If you set this to `True` it will overwrite `argless`, this does mean you lose any arguments without a flag
 
 You do not have to provide these values. There are defaults in place. It is only for customization purposes
 

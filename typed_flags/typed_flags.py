@@ -1,11 +1,14 @@
 from discord.ext import commands
 from discord.ext.commands.view import StringView
 
+from .exceptions import ReservedKeyword
+
 
 class TypedFlags(commands.Converter):
-    def __init__(self, *, delim=None, start=None):
+    def __init__(self, *, delim=None, start=None, suppress_reserved_keyword=None):
         self.delim = delim or ":="
         self.start = start or "--"
+        self.suppress_reserved_keyword = suppress_reserved_keyword or False
 
     async def convert(self, ctx, argument):
         x = True
@@ -41,7 +44,20 @@ class TypedFlags(commands.Converter):
 
                 # Get the first matching string
                 data[arg_name] = view.get_quoted_word()
+                arg_value = view.get_quoted_word()
                 view.skip_ws()
+
+                if (
+                    is_reserved := (arg_value == "argless")
+                    and self.suppress_reserved_keyword
+                ):
+                    # This is reserved, but the user says to overwrite argless
+                    data[arg_name] = arg_value
+                elif is_reserved:
+                    # Its reserved
+                    raise ReservedKeyword
+                else:
+                    data[arg_name] = arg_value
 
                 # The rest is just argless stuff
                 while not view.eof:
